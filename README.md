@@ -44,8 +44,6 @@
 - ✅ **Đăng bài viết** với text và hình ảnh
 - ✅ **Tương tác xã hội** - Like, Comment, Share
 - ✅ **Tin tức công ty** hàng ngày
-- ✅ **Sách hay nên đọc** và giới thiệu
-- ✅ **Sự kiện công ty** - 8/3, 20/10, hoạt động bộ phận
 - ✅ **Quản lý hồ sơ** cá nhân
 - ✅ **Responsive design** cho mọi thiết bị
 
