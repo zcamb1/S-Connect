@@ -118,6 +118,10 @@
 - **JWT** authentication
 - **bcryptjs** cho password hashing
 
+### Screenshot
+![image](https://github.com/user-attachments/assets/445f9087-957f-4890-bfff-16350117b033)
+
+
 ## 📦 Cài đặt và Chạy ứng dụng
 
 ### Bước 1: Clone repository
