@@ -408,7 +408,7 @@ server/
 ├── 🧪 testAPI.js               # Test API endpoints
 ├── 📸 uploads/                  # Uploaded files
 └── 📖 README.md                # Hướng dẫn server
-
+```
 ## 🔧 Cấu trúc thư mục (legacy)
 
 ```
@@ -443,7 +443,6 @@ webdemo/
 
 ## 🗄️ Database Schema
 
-Database sử dụng SQLite với các bảng chính:
 
 ```mermaid
 erDiagram
@@ -496,12 +495,12 @@ erDiagram
         datetime created_at
     }
     
-    USERS ||--o{ POSTS : "creates"
-    USERS ||--o{ COMMENTS : "writes"
-    POSTS ||--o{ COMMENTS : "has"
-    COMMENTS ||--o{ COMMENTS : "replies"
-    COMMENTS ||--o{ MENTIONS : "contains"
-    USERS ||--o{ MENTIONS : "tagged"
+    USERS ||--o{ POSTS : "tạo"
+    USERS ||--o{ COMMENTS : "viết"
+    POSTS ||--o{ COMMENTS : "có"
+    COMMENTS ||--o{ COMMENTS : "reply"
+    COMMENTS ||--o{ MENTIONS : "chứa"
+    USERS ||--o{ MENTIONS : "được_tag"
 ```
 
 ### Users Table
