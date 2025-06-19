@@ -219,14 +219,7 @@ Database đã được tạo sẵn các user mẫu để test:
 - **Sidebar trái**: Điều hướng chính (Trang chủ, Hồ sơ, Sự kiện...)
 - **Sidebar phải**: Sự kiện sắp tới, bạn bè online, sinh nhật
 
-## 📷 Screenshots
 
-> **Lưu ý**: Thêm screenshots của ứng dụng để tăng tính chuyên nghiệp
-
-| Trang chủ | Comment System | Profile |
-|-----------|----------------|---------|
-| ![Home](docs/screenshots/home.png) | ![Comments](docs/screenshots/comments.png) | ![Profile](docs/screenshots/profile.png) |
-| News feed với posts | Nested comments với mentions | User profile management |
 
 ## 🏗️ Kiến trúc hệ thống
 
