@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+import Login from './components/features/user/Login';
+import Dashboard from './components/common/Dashboard';
 import { AppProvider } from './contexts/AppContext';
 import { UserProvider } from './contexts/UserContext';
 import { ThemeProvider } from './contexts/ThemeContext';

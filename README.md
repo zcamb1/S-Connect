@@ -10,7 +10,9 @@
 
 **Nền tảng mạng xã hội hiện đại với hệ thống comment nested và tương tác real-time**
 
-[📖 Tài liệu](#-cài-đặt-và-chạy-ứng-dụng) • [🚀 Demo](#-tài-khoản-demo) • [💻 API](#-api-endpoints) • [🔧 Đóng góp](#-đóng-góp)
+> 🚀 **Latest Update**: Components đã được tổ chức lại theo **Feature-Based Architecture** cho dễ bảo trì và mở rộng
+
+[📖 Tài liệu](#-cài-đặt-và-chạy-ứng-dụng) • [🚀 Demo](#-tài-khoản-demo) • [💻 API](#-api-endpoints) • [🏗️ Component Structure](#️-kiến-trúc-hệ-thống) • [🔧 Đóng góp](#-đóng-góp)
 
 </div>
 
@@ -39,15 +41,51 @@
 
 ## 🚀 Tính năng
 
+### 🔐 **Authentication & User Management**
 - ✅ **Đăng nhập an toàn** với JWT authentication
+- ✅ **Quản lý hồ sơ** cá nhân với avatar cropper
+- ✅ **Edit profile** với validation
+- ✅ **User contexts** để quản lý state global
+
+### 📱 **Layout & Navigation**  
 - ✅ **Giao diện hiện đại** thiết kế theo chuẩn Facebook
-- ✅ **Đăng bài viết** với text và hình ảnh
-- ✅ **Tương tác xã hội** - Like, Comment, Share
-- ✅ **Tin tức công ty** hàng ngày
-- ✅ **Sách hay nên đọc** và giới thiệu
-- ✅ **Sự kiện công ty** - 8/3, 20/10, hoạt động bộ phận
-- ✅ **Quản lý hồ sơ** cá nhân
 - ✅ **Responsive design** cho mọi thiết bị
+- ✅ **Top navigation** với search và notifications
+- ✅ **Sidebar navigation** với menu categories
+- ✅ **Right sidebar** với suggestions và trending
+
+### 📝 **Posts & Content**
+- ✅ **News feed** hiển thị bài viết theo thời gian
+- ✅ **Create posts** với text và image upload
+- ✅ **Post detail** view với full content
+- ✅ **Post interactions** - Like, Comment, Share
+- ✅ **Saved posts** để bookmark bài viết quan trọng
+
+### 💬 **Comments System**
+- ✅ **Nested comments** với unlimited depth
+- ✅ **Comment replies** với mention support (@username)
+- ✅ **Comment reactions** và like system
+- ✅ **Real-time updates** từ database
+- ✅ **Image attachments** trong comments
+
+### 🔍 **Search & Discovery**
+- ✅ **Search bar** với autocomplete
+- ✅ **Search results** với filtering
+- ✅ **Trending topics** và suggestions
+- ✅ **User discovery** và recommendations
+
+### 📄 **Pages & Groups**
+- ✅ **Company pages** management
+- ✅ **Follow pages** functionality  
+- ✅ **Page details** với posts và info
+- ✅ **Group details** và member management
+
+### 🎨 **UI/UX Components**
+- ✅ **Design system** với reusable components
+- ✅ **Dark/Light mode** support (ThemeContext)
+- ✅ **Toast notifications** cho user feedback
+- ✅ **Loading states** và error handling
+- ✅ **Image viewer** với zoom và download
 
 ## ⚡ Highlights
 
@@ -192,12 +230,60 @@ Database đã được tạo sẵn các user mẫu để test:
 
 ## 🏗️ Kiến trúc hệ thống
 
+### 📋 **Component Organization Strategy**
+
+Dự án sử dụng **Feature-Based Architecture** thay vì Flat Structure:
+
+#### ✅ **Trước khi tối ưu (Flat Structure)**
+```
+❌ components/
+    ├── Header.tsx (25+ files cùng cấp)
+    ├── Profile.tsx
+    ├── Comments.tsx
+    ├── PostDetail.tsx
+    └── ... (20+ files khác)
+```
+
+#### ✅ **Sau khi tối ưu (Feature-Based)**
+```
+✅ components/
+    ├── layout/     # Layout components
+    ├── features/   # Tính năng theo nhóm
+    ├── common/     # Shared components  
+    ├── ui/         # Design system
+    └── data/       # Data files
+```
+
+#### 🎯 **Lợi ích của cấu trúc mới:**
+- **🔍 Dễ tìm kiếm**: Biết ngay component ở đâu
+- **👥 Team collaboration**: Dev có thể làm việc parallel
+- **📦 Code splitting**: Lazy load theo feature
+- **🧪 Testing**: Test theo feature groups
+- **🚀 Scalability**: Dễ mở rộng khi thêm tính năng
+
+#### 🛠️ **Import Examples:**
+```typescript
+// Layout components
+import { Header, Sidebar } from '@/components/layout'
+
+// User features  
+import { Profile, EditProfile } from '@/components/features/user'
+
+// Post features
+import { NewsFeed, PostDetail } from '@/components/features/posts'
+
+// UI components
+import { Button, Card } from '@/components/ui'
+```
+
 ```mermaid
 graph TB
     subgraph "Client (React)"
         A["React App<br/>Port: 3000"]
-        A1["Components"]
-        A2["Contexts"]
+        A1["Layout Components"]
+        A2["Feature Components"]
+        A3["Common Components"]
+        A4["UI Design System"]
         A3["Data/Mock"]
         A --> A1
         A --> A2
@@ -244,6 +330,95 @@ graph TB
 ```
 
 ## 🔧 Cấu trúc thư mục
+
+### 📁 **Frontend (Client) - Cấu trúc đã được tối ưu hóa**
+
+```
+client/src/
+├── 📱 components/                 # Components được tổ chức theo tính năng
+│   ├── 🏗️ layout/               # Layout components
+│   │   ├── Header.tsx           # Header chính
+│   │   ├── Sidebar.tsx          # Sidebar điều hướng
+│   │   ├── RightSidebar.tsx     # Sidebar phải (gợi ý, trending)
+│   │   ├── TopNavigation.tsx    # Navigation bar
+│   │   └── index.ts             # Export file
+│   ├── 📝 features/             # Tính năng theo nhóm
+│   │   ├── 👤 user/             # User management
+│   │   │   ├── Profile.tsx      # Trang cá nhân
+│   │   │   ├── EditProfile.tsx  # Chỉnh sửa profile
+│   │   │   ├── Login.tsx        # Đăng nhập
+│   │   │   └── AvatarCropper.tsx # Crop avatar
+│   │   ├── 📰 posts/            # Post management
+│   │   │   ├── NewsFeed.tsx     # Hiển thị tin tức
+│   │   │   ├── PostDetail.tsx   # Chi tiết bài viết
+│   │   │   ├── CreatePost.tsx   # Tạo bài viết
+│   │   │   ├── PostInteraction.tsx # Like, comment, share
+│   │   │   ├── SavedPosts.tsx   # Bài viết đã lưu
+│   │   │   └── Feed.tsx         # Feed component
+│   │   ├── 💬 comments/         # Comment system
+│   │   │   ├── Comments.tsx     # Comment chính
+│   │   │   ├── CommentItem.tsx  # Item comment
+│   │   │   ├── ReplyInput.tsx   # Input reply
+│   │   │   └── ReplyItem.tsx    # Item reply
+│   │   ├── 🔍 search/           # Search functionality
+│   │   │   ├── SearchBar.tsx    # Thanh tìm kiếm
+│   │   │   └── SearchResults.tsx # Kết quả tìm kiếm
+│   │   └── 📄 pages/            # Page management
+│   │       ├── PageDetail.tsx   # Chi tiết trang
+│   │       ├── PageView.tsx     # Xem trang
+│   │       ├── PagesFollow.tsx  # Theo dõi trang
+│   │       └── FollowedPagesList.tsx # DS trang đã follow
+│   ├── 🔧 common/               # Shared components
+│   │   ├── Dashboard.tsx        # Dashboard chính
+│   │   ├── Settings.tsx         # Cài đặt
+│   │   ├── LuckyWheel.tsx       # Vòng quay may mắn
+│   │   ├── WorkSchedule.tsx     # Lịch làm việc
+│   │   ├── ImageViewer.tsx      # Xem ảnh
+│   │   └── GroupDetail.tsx      # Chi tiết nhóm
+│   ├── 📊 data/                 # Data files
+│   │   ├── emojiData.ts         # Dữ liệu emoji
+│   │   └── commentData.ts       # Dữ liệu comment
+│   └── 🎨 ui/                   # Design system
+│       ├── button.tsx           # Button component
+│       ├── input.tsx            # Input component
+│       ├── card.tsx             # Card component
+│       └── ...                  # Các UI components khác
+├── 🎯 contexts/                  # React contexts
+│   ├── AppContext.tsx           # App state global
+│   ├── UserContext.tsx          # User state
+│   └── ThemeContext.tsx         # Theme management
+├── 📊 data/                     # Static data
+│   ├── mockPosts.ts             # Dữ liệu bài viết mẫu
+│   ├── mockUsers.ts             # Dữ liệu user mẫu
+│   ├── mockComments.ts          # Dữ liệu comment mẫu
+│   ├── posts.ts                 # Post data
+│   ├── suggestions.ts           # Gợi ý
+│   └── trending.ts              # Trending data
+├── 🛠️ utils/                    # Utility functions
+│   └── toast.ts                 # Toast notifications
+├── 🎨 lib/                      # Library utilities
+│   └── utils.ts                 # Helper functions
+└── 🔧 backup-components/        # Backup components (legacy)
+    ├── Dashboard.tsx            
+    ├── Feed.tsx                 
+    └── ...                      # Components cũ đã backup
+```
+
+### 📁 **Backend (Server)**
+
+```
+server/
+├── 📄 index.js                  # Server chính
+├── 🗄️ webdemo.db               # SQLite database  
+├── 🔧 initDatabase.js           # Tạo database từ đầu
+├── 🌱 seedComments.js           # Seed comment data
+├── ✅ checkSchema.js            # Kiểm tra database schema
+├── 🗂️ deleteComments.js        # Xóa comments (utility)
+├── 🧪 testAPI.js               # Test API endpoints
+├── 📸 uploads/                  # Uploaded files
+└── 📖 README.md                # Hướng dẫn server
+
+## 🔧 Cấu trúc thư mục (legacy)
 
 ```
 webdemo/
@@ -481,6 +656,161 @@ node deleteComments.js
 # Test API endpoints
 node testAPI.js
 ```
+
+## 👨‍💻 Development Guidelines
+
+### 📁 **Component Organization Strategy**
+
+#### ✅ **Quy tắc tổ chức Components:**
+```typescript
+// 1. Xác định loại component
+// Layout: Header, Sidebar, Navigation  
+// Feature: User, Post, Comment specific
+// Common: Shared across features
+// UI: Design system components
+
+// 2. Đặt vào folder phù hợp
+components/
+├── layout/          # Layout components
+├── features/        # Feature-specific components
+│   ├── user/        # User-related
+│   ├── posts/       # Post-related  
+│   └── comments/    # Comment-related
+├── common/          # Shared business components
+└── ui/              # Pure UI components
+```
+
+#### ✅ **Import Conventions:**
+```typescript
+// ✅ Good: Use relative imports với proper structure
+import { Button } from '../../ui/button'
+import { Profile } from '../user/Profile'
+
+// ✅ Good: Group imports by type
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { Button } from '../../ui/button'
+import { UserContext } from '../../../contexts/UserContext'
+
+// ❌ Avoid: Too many relative paths
+import { Button } from '../../../../../ui/button'
+```
+
+#### ✅ **Component Naming:**
+```typescript
+// ✅ Good: PascalCase, descriptive
+PostDetail.tsx          # Chi tiết bài viết
+UserProfile.tsx         # Trang cá nhân user  
+CommentItem.tsx         # Item comment
+SearchResults.tsx       # Kết quả tìm kiếm
+
+// ❌ Avoid: Generic names
+Item.tsx
+Component.tsx
+Index.tsx
+```
+
+### 🔄 **Adding New Features**
+
+#### **Workflow khi thêm tính năng mới:**
+
+1. **Tạo feature folder:**
+```bash
+mkdir src/components/features/your-feature
+```
+
+2. **Tạo components:**
+```typescript
+// src/components/features/your-feature/YourFeature.tsx
+export function YourFeature() {
+  return <div>Your Feature</div>
+}
+
+// src/components/features/your-feature/YourFeatureItem.tsx  
+export function YourFeatureItem() {
+  return <div>Feature Item</div>
+}
+```
+
+3. **Tạo index.ts để export:**
+```typescript
+// src/components/features/your-feature/index.ts
+export { YourFeature } from './YourFeature'
+export { YourFeatureItem } from './YourFeatureItem'
+```
+
+4. **Import trong component khác:**
+```typescript
+import { YourFeature } from '../features/your-feature'
+```
+
+### 📦 **Code Organization Best Practices**
+
+#### **File Naming:**
+- **Components**: PascalCase (`UserProfile.tsx`)
+- **Utilities**: camelCase (`dateUtils.ts`)  
+- **Constants**: UPPER_CASE (`API_ENDPOINTS.ts`)
+- **Types**: PascalCase (`UserTypes.ts`)
+
+#### **Folder Structure Rules:**
+- **Max 10 files** per folder (tạo sub-folder nếu cần)
+- **Group related** components together
+- **Separate concerns**: UI vs Business Logic vs Data
+
+#### **Import Order:**
+```typescript
+// 1. React imports
+import React, { useState, useEffect } from 'react'
+
+// 2. Third-party libraries  
+import axios from 'axios'
+import { format } from 'date-fns'
+
+// 3. Internal components (UI first)
+import { Button } from '../../ui/button'
+import { Card } from '../../ui/card'
+
+// 4. Feature components
+import { Profile } from '../user/Profile'
+
+// 5. Contexts & hooks
+import { useUser } from '../../../contexts/UserContext'
+
+// 6. Utils & constants
+import { formatDate } from '../../../utils/dateUtils'
+import { API_ENDPOINTS } from '../../../constants'
+
+// 7. Types
+import type { User, Post } from '../../../types'
+```
+
+### 🧪 **Testing Strategy**
+
+```typescript
+// Test structure theo features
+tests/
+├── features/
+│   ├── user/
+│   │   ├── Profile.test.tsx
+│   │   └── EditProfile.test.tsx
+│   ├── posts/
+│   │   ├── NewsFeed.test.tsx
+│   │   └── PostDetail.test.tsx
+│   └── comments/
+│       └── Comments.test.tsx
+├── ui/
+│   ├── Button.test.tsx
+│   └── Card.test.tsx
+└── utils/
+    └── dateUtils.test.ts
+```
+
+### 🚀 **Performance Tips**
+
+- **Lazy Loading**: Sử dụng `React.lazy()` cho feature components
+- **Code Splitting**: Tách features thành chunks riêng
+- **Bundle Analysis**: `npm run build -- --analyze`
+- **Image Optimization**: WebP format + lazy loading
 
 ## 🔄 API Endpoints
 
