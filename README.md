@@ -269,21 +269,25 @@ import { NewsFeed, PostDetail } from '@/components/features/posts'
 import { Button, Card } from '@/components/ui'
 ```
 
+### 🏗️ **Kiến trúc tổng quan**
+
 ```mermaid
 graph TB
-    subgraph "Client (React)"
+    subgraph "Frontend (React)"
         A["React App<br/>Port: 3000"]
         A1["Layout Components"]
         A2["Feature Components"]
         A3["Common Components"]
         A4["UI Design System"]
-        A3["Data/Mock"]
+        A5["Data/Mock"]
         A --> A1
         A --> A2
         A --> A3
+        A --> A4
+        A --> A5
     end
     
-    subgraph "Server (Node.js)"
+    subgraph "Backend (Node.js)"
         B["Express Server<br/>Port: 3001"]
         B1["API Routes"]
         B2["Upload Handler"]
@@ -297,7 +301,7 @@ graph TB
         C["SQLite Database"]
         C1["Users Table"]
         C2["Posts Table"]
-        C3["Comments Table<br/>(Nested)"]
+        C3["Comments Table"]
         C4["Mentions Table"]
         C --> C1
         C --> C2
@@ -311,15 +315,9 @@ graph TB
         D --> D1
     end
     
-    A1 -.->|"API Calls<br/>(Axios)"| B1
-    B1 -.->|"SQL Queries"| C
-    B2 -.->|"Save Files"| D
-    B3 -.->|"Init/Seed"| C
-    
-    style A fill:#61dafb
-    style B fill:#68a063
-    style C fill:#003b57
-    style D fill:#f39c12
+    A -.->|"API Calls"| B
+    B -.->|"SQL Queries"| C
+    B -.->|"Save Files"| D
 ```
 
 ## 🔧 Cấu trúc thư mục
@@ -429,7 +427,7 @@ webdemo/
 │   └── package.json
 ├── server/                # Backend Node.js
 │   ├── index.js          # Express server
-│   ├── database.sqlite   # SQLite database
+│   ├── webdemo.db        # SQLite database
 │   ├── initDatabase.js   # Database setup script
 │   ├── seedComments.js   # Add sample comments
 │   ├── checkSchema.js    # Verify database structure
